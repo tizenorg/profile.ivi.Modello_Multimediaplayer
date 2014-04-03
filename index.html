@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=720, height=1280, user-scalable=no" />
+<meta http-equiv="cache-control" content="no-cache" />
+<title>Multimedia Player</title>
+
+<!--  jquery and plugins  -->
+<script type="text/javascript"
+	src="./css/car/components/jQuery/jquery-1.8.2.js"></script>
+<script type="text/javascript"
+	src="./css/car/components/knockout/knockout.js"></script>
+<script type="text/javascript"
+	src="./css/car/components/carousel/jquery.carouFredSel-6.2.1-packed.js"></script>
+<script type="text/javascript"
+	src="./css/car/components/carousel/jquery.touchSwipe.min.js"></script>
+
+<!-- jsRender Library Import -->
+<script type="text/javascript"
+	src="./css/car/components/jsViews/jsrender.js"></script>
+<script type="text/javascript"
+	src="./css/car/components/jsViews/template.js"></script>
+
+<!-- User and car theme and javascripts  -->
+<link rel="stylesheet" href="./css/car/car.css" />
+<link rel="stylesheet"
+	href="./css/car/components/incomingCall/incomingCall.css" />
+<script type="text/javascript" src="./css/car/car.js"></script>
+<script type="text/javascript" src='./js/services/bootstrap.js'></script>
+
+<link rel="stylesheet" href="./css/style.css" />
+<link rel="stylesheet" href="./css/music_library.css" />
+
+<!-- Music Player -->
+<script type="text/javascript" src="./js/utils.js"></script>
+<script type="text/javascript" src="./js/carousel.js"></script>
+<script type="text/javascript" src="./js/localcontent.js"></script>
+<script type="text/javascript" src="./js/mediacontent.js"></script>
+<script type="text/javascript" src="./js/remotecontent.js"></script>
+<script type="text/javascript" src="./js/multimedialibrary.js"></script>
+<script type="text/javascript" src="./js/main.js"></script>
+
+<!-- Components -->
+<script type="text/javascript"
+	src="./css/car/components/audioPlayer/audioPlayer.js"></script>
+<script type="text/javascript" src="./components/infoPanel/infoPanel.js"></script>
+<script type="text/javascript"
+	src="./components/timeProgressBar/timeProgressBar.js"></script>
+<script type="text/javascript"
+	src="./components/spectrumAnalyzer/spectrumAnalyzer.js"></script>
+<script type="text/javascript"
+	src="./css/car/components/configuration/configuration.js"></script>
+<script type="text/javascript"
+	src="./css/car/components/bottomPanel/bottomPanel.js"></script>
+<script type="text/javascript"
+	src="./css/car/components/buttonControls/buttonControls.js"></script>
+<script type='text/javascript'
+	src='./css/car/components/progressBar/progressBar.js'></script>
+<link rel="stylesheet"
+	href="./css/car/components/progressBar/progressBar.css" />
+<script type='text/javascript'
+	src='./css/car/components/topBarIcons/topBarIcons.js'></script>
+<link rel="stylesheet"
+	href="./css/car/components/topBarIcons/topBarIcons.css" />
+<script type='text/javascript'
+	src='./css/car/components/boxCaption/boxCaption.js'></script>
+<link rel="stylesheet"
+	href="./css/car/components/boxCaption/boxCaption.css" />
+<script type='text/javascript'
+	src='./css/car/components/dateTime/dateTime.js'></script>
+<link rel="stylesheet" href="./css/car/components/dateTime/dateTime.css" />
+<script type="text/javascript"
+	src='./css/car/components/alphabetBookmark/alphabetBookmark.js'></script>
+<link rel="stylesheet"
+	href="./css/car/components/alphabetBookmark/alphabetBookmark.css" />
+<script type="text/javascript"
+	src='./css/car/components/library/library.js'></script>
+<link rel="stylesheet" href="./css/car/components/library/library.css" />
+
+<link rel="stylesheet"
+	href="./css/car/components/progressBar/volumeSlider.css" />
+<script type="text/javascript"
+	src="./css/car/components/jQuery/jquery.nouisliderix.js"></script>
+
+</head>
+
+<body>
+	<div id="topBarIcons"></div>
+
+	<div id="backgroundAudio"
+		class="backgroundAudioClass defaultPageBackgroundColor">
+		<div id="clockElement"></div>
+
+		<div id="libraryButton"
+			class="button libraryButton fontSizeSmaller fontWeightBold fontColorNormal">LIBRARY</div>
+
+		<div id="multimediaPlayer" class="playerWrapper">
+			<div id="carouselWrapper" class="carouselWrapper borderColorDark">
+				<ul id="carouselList" class="carouselList"></ul>
+			</div>
+
+			<audio id="audioPlayer" src=""></audio>
+
+			<video id="videoPlayer" src=""></video>
+
+			<div id="volumeControl" class="volumeControlClass">
+				<div id="VCicon"></div>
+				<div class="sliderStart"></div>
+				<div id="VCline" class="bgColorTheme"></div>
+				<div id="VCinner" class="bgColorTheme boxShadow3"></div>
+				<div class="noVolumeSlider"></div>
+			</div>
+
+			<div id="controlButtons" class="audioControlsButtons"></div>
+
+			<div id="infoPanelWrapper" class="textPanel">
+				<img id="thumbnail"
+					class="currentlyPlayingPreviewClass albumThumbnail carouselImage boxShadow2" />
+				<div id="timeBar" class="timeBarClass"></div>
+				<div id="infoPanel" class="infoPanelClass"></div>
+			</div>
+
+			<div id="spectAnalyzer" class="spectrumAnalyzer"></div>
+		</div>
+
+		<div id="bottomPanel" class="bottomPanel bottomPanelImg"></div>
+	</div>
+
+	<div id="musicLibrary" class="library pageBgColorNormalTransparent"></div>
+
+	<script type="text/html" id="localContentCategoryItemTemplate">
+		<div class="musicElement boxShadow4 borderColorTheme" data-bind='click: MultimediaLibrary.selectLocalContent'>
+			<div class="musicInfoBox musicInfoBoxCentered textBgColorNormalTransparent">
+				<div class="contentTitle fontSizeLarge fontWeightBold fontColorNormal oneLineEllipsis textTransformUppercase" data-bind="text: title"></div>
+			</div>
+		</div>
+	</script>
+
+	<script type="text/html" id="localContentSubCategoryItemTemplate">
+		<div class="musicElement boxShadow4 borderColorTheme" data-bind='click: MultimediaLibrary.selectLocalContent'>
+			<div class="musicInfoBox musicInfoBoxCentered textBgColorNormalTransparent">
+				<div class="contentTitle fontSizeLarge fontWeightBold fontColorNormal oneLineEllipsis textTransformUppercase" data-bind="text: title"></div>
+			</div>
+		</div>
+	</script>
+
+	<script type="text/html" id="localContentArtistItemTemplate">
+		<div class="musicElement boxShadow4 borderColorTheme" data-bind='click: MultimediaLibrary.selectLocalContent'>
+			<div class="musicInfoBox textBgColorNormalTransparent">
+				<div class="contentTitle fontSizeLarge fontWeightBold fontColorNormal oneLineEllipsis textTransformUppercase" data-bind="text: title"></div>
+				<div class="contentSubtitle fontSizeXSmall fontWeightBold fontColorTheme oneLineEllipsis textTransformUppercase" data-bind="text: subtitle"></div>
+			</div>
+		</div>
+	</script>
+
+	<script type="text/html" id="localContentAlbumItemTemplate">
+		<div class="musicElement boxShadow4 borderColorTheme" data-bind='click: MultimediaLibrary.selectLocalContent'>
+			<div class="musicImage albumThumbnail">
+				<img data-bind="attr:{src: thumbnail}" />
+			</div>
+			<div class="musicInfoBox musicInfoBoxShort textBgColorNormalTransparent">
+				<div class="contentTitle fontSizeLarge fontWeightBold fontColorNormal oneLineEllipsis textTransformUppercase" data-bind="text: title"></div>
+				<div class="contentSubtitle fontSizeXSmall fontWeightBold fontColorTheme oneLineEllipsis textTransformUppercase" data-bind="text: subtitle"></div>
+			</div>
+		</div>
+	</script>
+
+	<script type="text/html" id="localContentAudioVideoItemTemplate">
+		<div class="musicElement boxShadow4 borderColorTheme" data-bind='click: MultimediaLibrary.selectLocalMediaContent'>
+			<div class="musicImage albumThumbnail">
+				<img data-bind="attr:{src: Utils.getThumbnailPath($data)}" />
+			</div>
+			<div class="musicInfoBox musicInfoBoxShort textBgColorNormalTransparent">
+				<div class="contentTitle fontSizeLarge fontWeightBold fontColorNormal oneLineEllipsis textTransformUppercase" data-bind="text: title"></div>
+				<div class="contentSubtitle fontSizeXSmall fontWeightBold fontColorTheme oneLineEllipsis textTransformUppercase" data-bind="text: Utils.getArtistName($data)"></div>
+			</div>
+		</div>
+	</script>
+
+	<script type="text/html" id="mediaSourceItemTemplate">
+		<div class="musicElement boxShadow4 borderColorTheme" data-bind='click: MultimediaLibrary.selectRemoteMediaSource'>
+			<div class="musicInfoBox musicInfoBoxCentered textBgColorNormalTransparent">
+				<div class="contentTitle fontSizeLarge fontWeightBold fontColorNormal oneLineEllipsis textTransformUppercase" data-bind="text: friendlyName"></div>
+			</div>
+		</div>
+	</script>
+
+	<script type="text/html" id="mediaContentItemTemplate">
+		<div class="musicElement boxShadow4 borderColorTheme" data-bind='click: MultimediaLibrary.selectRemoteContent'>
+			<div class="musicImage albumThumbnail">
+				<img data-bind="attr:{src: Utils.getThumbnailPath($data)}" />
+			</div>
+			<div class="musicInfoBox musicInfoBoxShort textBgColorNormalTransparent" data-bind="css: { musicInfoBoxCentered: type == 'CONTAINER' }">
+				<!-- ko if: type == "CONTAINER" -->
+					<div class="contentTitle fontSizeLarge fontWeightBold fontColorNormal oneLineEllipsis textTransformUppercase" data-bind="text: title"></div>
+				<!-- /ko -->
+				<!-- ko if: type != "CONTAINER" -->
+					<div class="contentTitle fontSizeLarge fontWeightBold fontColorNormal oneLineEllipsis textTransformUppercase" data-bind="text: title"></div>
+					<div class="contentSubtitle fontSizeXSmall fontWeightBold fontColorTheme oneLineEllipsis textTransformUppercase" data-bind="text: Utils.getArtistName($data)"></div>
+				<!-- /ko -->
+			</div>
+		</div>
+	</script>
+</body>
+</html>
