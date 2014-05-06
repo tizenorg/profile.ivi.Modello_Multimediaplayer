@@ -1,3 +1,6 @@
+* Tue May 06 2014 brianjjones <brian.j.jones@intel.com> submit/tizen/20140416.224147@e473052
+- Updated to work with Crosswalk.  TIVI-3077
+
 * Mon Apr 14 2014 brianjjones <brian.j.jones@intel.com> submit/tizen/20140404.163925@acf3535
 - Fixing image files
 - Changing file names

@@ -2,8 +2,8 @@
 <widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets"
 	id="http://com.intel.tizen/multimediaplayer" version="1.0.0" viewmodes="fullscreen">
 	<access origin="*" subdomains="true" />
-	<tizen:application id="html5POC07.Multimediaplayer"
-		package="html5POC07" required_version="2.1" />
+	<tizen:application id="Modello007.Multimediaplayer"
+		package="Modello007" required_version="2.1" />
 	<content src="index.html" />
 	<icon src="icon.png" />
 	<name>Multimedia Player</name>
