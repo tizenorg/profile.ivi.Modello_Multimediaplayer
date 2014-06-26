@@ -1,3 +1,6 @@
+* Thu Jun 26 2014 brianjjones <brian.j.jones@intel.com> accepted/tizen/ivi/20140526.130731-1-g635ff71
+- Updates to use the slightly altered mediaserver API
+
 * Thu May 22 2014 brianjjones <brian.j.jones@intel.com> submit/tizen_ivi/20140508.232656@1f1125d
 - Fixes for IVI-3190 - To get things to render normally
 

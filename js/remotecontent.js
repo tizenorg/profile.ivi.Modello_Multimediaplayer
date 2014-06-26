@@ -13,7 +13,7 @@
 var RemoteContent = function() {
 	"use strict";
 	var self = this;
-	this.mediaServer = tizen.mediaserver;
+	this.mediaServer = navigator.mediaServer; //tizen.mediaserver;
 	this.mediaSources = ko.observableArray([]);
 	this.selectedMediaSource = ko.observable(null);
 
@@ -63,12 +63,11 @@ RemoteContent.prototype.scanMediaServerNetwork = function() {
 	var self = this;
 	if (!!self.mediaServer) {
 		self.clearDisappearedMediaSources();
-		self.mediaServer.scanNetwork(function(source) {
-			self.addMediaSource(source);
-		}, function(err) {
-			console.log("An error has occured while scanning network: " + err.message);
-			console.log(err);
-		});
+
+		self.mediaServer.addEventListener('serverfound', function(source) {
+                        self.addMediaSource(source.server);
+                });
+		self.mediaServer.scanNetwork();
 	}
 };
 
@@ -84,7 +83,10 @@ RemoteContent.prototype.addMediaSource = function(source) {
 	console.log(source);
 	if (!!source) {
 		if (!source.friendlyName) {
-			return;
+			for(var key in source) {
+			    var value = source[key];
+			    if (source.hasOwnProperty(key))
+			}
 		}
 		source.timestamp = new Date().getTime();
 		var sourceExists = false;
@@ -321,7 +323,7 @@ RemoteContent.prototype.browseMediaSourceContainer = function(source, container)
 
 		if (jsonArray.length === browseCount) {
 			browseOffset += browseCount;
-			source.browse(container.id, "+DisplayName", browseCount, browseOffset, browseContainerCB, browseErrorCB);
+			source.browse(container.id, "+DisplayName", browseCount, browseOffset).then(browseContainerCB);
 		} else {
 			self.currentBrowseOperation = "";
 		}
@@ -333,7 +335,7 @@ RemoteContent.prototype.browseMediaSourceContainer = function(source, container)
 
 	self.currentBrowseOperation = localOp;
 
-	source.browse(container.id, "+DisplayName", browseCount, browseOffset, browseContainerCB, browseErrorCB);
+	source.browse(container.id, "+DisplayName", browseCount, browseOffset).then(browseContainerCB)
 };
 
 /**

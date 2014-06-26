@@ -66,6 +66,10 @@ mediacontent.MediaContainer = function(proxy) {
 	this.type = "CONTAINER";
 	this.directoryURI = "";
 	this.storageType = "EXTERNAL";
+	this.title = proxy.title;
+	if (this.id === undefined)
+		this.id = proxy.id;
+
 	return this;
 };
 
@@ -83,16 +87,17 @@ mediacontent.MediaItem = function(proxy) {
 	"use strict";
 	mediacontent.MediaObject.call(this, proxy);
 	if (proxy) {
-		this.mimeType = proxy.MIMEType;
+		this.mimeType = proxy.mimeType;
 		if (proxy.URLs) {
 			this.contentURI = proxy.URLs[0];
 		} else {
-			this.contentURI = "";
+			this.contentURI = proxy.sourceUri;
 		}
-		this.size = proxy.Size;
-		this.releaseDate = proxy.Date;
+		this.size = proxy.fileSize;
+		this.releaseDate = proxy.createDate;
 		this.modifiedDate = null;
-		this.name = this.title;
+		this.name = proxy.title;
+		this.title = proxy.title;
 		this.editableAttributes = [];
 		this.thumbnailURIs = [];
 		if (!!proxy.AlbumArtURL && proxy.AlbumArtURL !== "") {
@@ -119,17 +124,26 @@ mediacontent.MediaVideo = function(proxy) {
 	"use strict";
 	mediacontent.MediaItem.call(this, proxy);
 	if (proxy) {
-		this.duration = proxy.Duration * 1000; //Tizen's ContentVideo is in ms
-		this.width = proxy.Width;
-		this.height = proxy.Height;
+		this.duration = proxy.duration * 1000; //Tizen's ContentVideo is in ms
+		this.width = proxy.width;
+		this.height = proxy.height;
 		if (proxy.Album) {
 			this.album = proxy.Album;
-		} else {
+		}
+		else if (proxy.collection) {
+			this.album = proxy.collection;
+		}
+		else {
 			this.album = "Unknown";
 		}
+
 		if (proxy.Artist) {
 			this.artists = [ proxy.Artist ];
-		} else {
+		}
+		else if (proxy.author) {
+                        this.artists = [ proxy.author ];
+                }
+		else {
 			this.artists = [ "Unknown" ];
 		}
 		this.geolocation = null;
@@ -152,16 +166,18 @@ mediacontent.MediaAudio = function(proxy) {
 	"use strict";
 	mediacontent.MediaItem.call(this, proxy);
 	if (proxy) {
-		this.bitrate = proxy.SampleRate;
-		this.duration = proxy.Duration * 1000; //Tizen's ContentAudio is in ms
+		this.bitrate = proxy.audioSampleRate;
+		this.duration = proxy.duration * 1000; //Tizen's ContentAudio is in ms
 		if (proxy.Album) {
 			this.album = proxy.Album;
 		} else {
 			this.album = "Unknown";
 		}
-		//this;
 		if (proxy.Artist) {
 			this.artists = [ proxy.Artist ];
+		}
+		else if (proxy.author) {
+                        this.artists = [ proxy.author ];
 		} else {
 			this.artists = [ "Unknown" ];
 		}
@@ -169,7 +185,10 @@ mediacontent.MediaAudio = function(proxy) {
 		this.composers = [ "Unknown" ];
 		this.lyrics = null;
 		this.copyright = "Unknown";
-		this.trackNumber = 0;
+		if (proxy.trackNumber)
+			this.trackNumber = proxy.trackNumber;
+		else
+			this.trackNumber = 0;
 	}
 	this.type = "AUDIO";
 	return this;
@@ -189,8 +208,8 @@ mediacontent.MediaImage = function(proxy) {
 	"use strict";
 	mediacontent.MediaItem.call(this, proxy);
 	if (proxy) {
-		this.width = proxy.Width;
-		this.height = proxy.Height;
+		this.width = proxy.width;
+		this.height = proxy.height;
 		this.orientation = "NORMAL";
 	}
 	this.type = "IMAGE";
@@ -209,17 +228,19 @@ mediacontent.MediaImage.prototype.constructor = mediacontent.MediaImage;
  */
 mediacontent.mediaObjectForProps = function(props) {
 	"use strict";
-	if (props.Type.indexOf("container") === 0 || props.Type.indexOf("album") === 0 || props.Type.indexOf("person") === 0 || props.Type.indexOf("genre") === 0){
+
+	if (props.type.indexOf("container") === 0 || props.type.indexOf("album") === 0 || props.type.indexOf("person") === 0 || props.type.indexOf("genre") === 0){
 		return new mediacontent.MediaContainer(props);
 	}
-	if (props.Type.indexOf("video") === 0){
+	if (props.type.indexOf("video") === 0){
 		return new mediacontent.MediaVideo(props);
 	}
-	if (props.Type.indexOf("audio") === 0 || props.Type.indexOf("music") === 0){
+	if (props.type.indexOf("audio") === 0 || props.type.indexOf("music") === 0){
 		return new mediacontent.MediaAudio(props);
 	}
-	if (props.Type.indexOf("image") === 0){
+	if (props.type.indexOf("image") === 0 || props.type.indexOf("picture") === 0) {
 		return new mediacontent.MediaImage(props);
 	}
+
 	return new mediacontent.MediaItem(props);
 };
