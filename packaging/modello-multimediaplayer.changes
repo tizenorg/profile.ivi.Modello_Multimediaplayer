@@ -1,3 +1,6 @@
+* Mon Jul 07 2014 brianjjones <brian.j.jones@intel.com> accepted/tizen/ivi/20140702.153244-1-g3435640
+- Removing faulty debug code and commented coded
+
 * Thu Jun 26 2014 brianjjones <brian.j.jones@intel.com> accepted/tizen/ivi/20140526.130731-1-g635ff71
 - Updates to use the slightly altered mediaserver API
 

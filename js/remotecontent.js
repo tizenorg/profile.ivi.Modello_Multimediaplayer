@@ -13,7 +13,7 @@
 var RemoteContent = function() {
 	"use strict";
 	var self = this;
-	this.mediaServer = navigator.mediaServer; //tizen.mediaserver;
+	this.mediaServer = navigator.mediaServer;
 	this.mediaSources = ko.observableArray([]);
 	this.selectedMediaSource = ko.observable(null);
 
@@ -83,10 +83,7 @@ RemoteContent.prototype.addMediaSource = function(source) {
 	console.log(source);
 	if (!!source) {
 		if (!source.friendlyName) {
-			for(var key in source) {
-			    var value = source[key];
-			    if (source.hasOwnProperty(key))
-			}
+			return;
 		}
 		source.timestamp = new Date().getTime();
 		var sourceExists = false;
