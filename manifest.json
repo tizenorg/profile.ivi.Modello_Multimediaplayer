@@ -1,12 +1,12 @@
 {
   "name": "Modello Multimedia Player",
-  "version": "0.0.2",
+  "xwalk_version": "0.0.2",
   "app": {
     "launch":{
       "local_path": "index.html"
     }
   },
   "icons": {
-    "128": "Multimedia_Player__icon.png"
+    "128": "Multimedia_Player_icon.png"
   }
 }

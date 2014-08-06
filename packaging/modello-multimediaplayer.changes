@@ -1,3 +1,6 @@
+* Wed Aug 06 2014 Brian Jones <brian.j.jones@intel.com> submit/tizen_ivi/20140708.220310-1-ge05ded7
+- Updating manifest to use xwalk_version instead of version - TC-1465
+
 * Mon Jul 07 2014 brianjjones <brian.j.jones@intel.com> accepted/tizen/ivi/20140702.153244-1-g3435640
 - Removing faulty debug code and commented coded
 
