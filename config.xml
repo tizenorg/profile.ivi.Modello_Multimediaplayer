@@ -5,7 +5,7 @@
 	<tizen:application id="Modello007.Multimediaplayer"
 		package="Modello007" required_version="2.1" />
 	<content src="index.html" />
-	<icon src="icon.png" />
+	<icon src="Multimedia_Player_icon.png" />
 	<name>Modello Multimedia Player</name>
 	<tizen:privilege name="http://tizen.org/privilege/application.launch" />
 	<tizen:privilege name="http://tizen.org/privilege/filesystem.read" />
