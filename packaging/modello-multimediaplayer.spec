@@ -26,4 +26,4 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root,-)
 /opt/usr/apps/.preinstallWidgets/Modello_Multimediaplayer.wgt
-/opt/usr/apps/_common/icons/Multimedia_Player_icon.png
+/opt/usr/apps/_common/icons/MultimediaPlayer_icon.png
