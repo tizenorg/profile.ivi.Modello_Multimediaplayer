@@ -1,3 +1,6 @@
+* Thu Sep 18 2014 Brian Jones <brian.j.jones@intel.com> submit/tizen_ivi/20140911.180109-1-gbc26d5f
+- Updating packaging to remove hard coded paths
+
 * Wed Sep 10 2014 Brian Jones <brian.j.jones@intel.com> submit/tizen_ivi/20140819.215824-1-g0d52355
 
 * Wed Sep 10 2014 Brian Jones <brian.j.jones@intel.com> submit/tizen_ivi/20140819.215824-1-g0d52355
