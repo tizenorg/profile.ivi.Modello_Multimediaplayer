@@ -1,3 +1,7 @@
+* Tue Oct 07 2014 Brian Jones <brian.j.jones@intel.com> submit/tizen_ivi/20141007.174646-1-g6c8176f
+- clean the spec file
+- Fix for TC-1560 UI always zoomed out
+
 * Thu Sep 18 2014 Brian Jones <brian.j.jones@intel.com> submit/tizen_ivi/20140911.180109-1-gbc26d5f
 - Updating packaging to remove hard coded paths
 
