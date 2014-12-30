@@ -64,9 +64,9 @@ RemoteContent.prototype.scanMediaServerNetwork = function() {
 	if (!!self.mediaServer) {
 		self.clearDisappearedMediaSources();
 
-		self.mediaServer.addEventListener('serverfound', function(source) {
+		self.mediaServer.onserverfound = function(source) {
                         self.addMediaSource(source.server);
-                });
+                };
 		self.mediaServer.scanNetwork();
 	}
 };
