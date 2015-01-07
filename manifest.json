@@ -1,6 +1,8 @@
 {
   "name": "Modello Multimedia Player",
   "xwalk_version": "0.0.2",
+  "manifest_version": 1,
+  "xwalk_media_app_class": "player",
   "app": {
     "launch":{
       "local_path": "index.html"
